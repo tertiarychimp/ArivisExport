@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script>
+  <Context>Zen26</Context>
+  <Version>1.0</Version>
+  <Language>Python</Language>
+  <Text>
+import subprocess
+filepath="C:\\Program Files\\arivis Vision4D\\arivisVision4D.exe C:\\temp\\arivis.py"
+pipelinepath="C:\\Program Files\\arivis Vision4D\\samples\\pipelines\\Detect Cells or Particles.xml"
+outfile="C:\\temp\\arivis.py"
+#thename=Zen.Application.ActiveDocument.FileName
+
+#Check for filetype. Adjust if required
+#if not Zen.Application.ActiveDocument.IsZenImage : 
+#    w=Zen.Windows.CreateWindow("Message")
+#    w.AddTextBlock("Not a valid image, will terminate now")
+#    w.HasCancelButton=False
+#    w.Show()
+#    sys.exit()
+
+#Build the script
+lines=[]
+lines.append("import arivis")
+lines.append("import arivis_analysis")
+lines.append("arivis.Import.import_single_file(r\ C:\\temp\\test.sis\"" + ", False)") # das Ding war nervig
+lines.append("viewer =arivis.App.get_active_viewer()")
+lines.append("document = viewer.get_document()")
+lines.append("arivis_analysis.open_analysisui(viewer)")
+lines.append("pipeline = document.import_pipeline(r\""+ pipelinepath + "\")")
+lines.append("document.set_active_pipeline(pipeline)")
+lines.append("pipeline.run_all()")
+
+with open(outfile, "w" ) as file:
+    file.write('\n'.join(lines))
+#run the script
+subprocess.Popen(filepath)
+ 
+ 
+</Text>
+  <Author></Author>
+  <Description></Description>
+  <Keywords></Keywords>
+  <Row>20</Row>
+  <Column>51</Column>
+</Script>
